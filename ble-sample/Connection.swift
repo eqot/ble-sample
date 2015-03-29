@@ -3,6 +3,7 @@ import CoreBluetooth
 class Connection: NSObject, CBCentralManagerDelegate {
     
     var centralManager: CBCentralManager!
+    var peripheral: CBPeripheral!
     
     override init() {
         super.init()
@@ -17,6 +18,10 @@ class Connection: NSObject, CBCentralManagerDelegate {
 
     func stopScan() {
         self.centralManager.stopScan()
+    }
+
+    func connect() {
+        self.centralManager.connectPeripheral(self.peripheral, options: nil)
     }
     
     func centralManagerDidUpdateState(central: CBCentralManager!) {
@@ -37,5 +42,20 @@ class Connection: NSObject, CBCentralManagerDelegate {
         RSSI: NSNumber!)
     {
         println("Found device: \(peripheral)")
+        
+        self.peripheral = peripheral
+        self.connect()
+    }
+    
+    func centralManager(central: CBCentralManager!,
+        didConnectPeripheral peripheral: CBPeripheral!)
+    {
+        println("Connected")
+    }
+    
+    func centralManager(central: CBCentralManager!,
+        didFailToConnectPeripheral peripheral: CBPeripheral!, error: NSError!)
+    {
+        println("Connection failed")
     }
 }
