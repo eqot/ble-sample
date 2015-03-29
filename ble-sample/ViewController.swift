@@ -1,25 +1,14 @@
-//
-//  ViewController.swift
-//  ble-sample
-//
-//  Created by eqo on 2015/03/29.
-//  Copyright (c) 2015年 eqot. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+    @IBOutlet weak var resultLabel: UILabel!
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func run(sender: UIButton) {
+        let connection = Connection.sharedInstance
+        
+        resultLabel.text = connection.start()
     }
-
 
 }
 
